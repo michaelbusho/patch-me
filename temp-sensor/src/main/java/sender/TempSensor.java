@@ -13,6 +13,8 @@ import java.util.Timer;
 public class TempSensor extends UnicastRemoteObject implements RMIInterface {
 
     private static final long serialVersionUID = 1L;
+    private static int temp = 20;
+
 
     public TempSensor() throws RemoteException {
         super();
@@ -65,14 +67,25 @@ public class TempSensor extends UnicastRemoteObject implements RMIInterface {
         }
     }
 
-    /**
-     * Simulation of distance value In real life could come from sensor or another
-     * Based on Ahmed's and Sultan's logic
-     */
+
     private static int getTempValue() {
-        int temp = new Random().nextInt(999);
-        System.out.println("Tempature: " + temp + " Degrees");
+        int temp = getEnginTemp();
+        int fahrenheitTemp = convertToFahrenheit(temp);
+        //PATCH Temperature in the message is written wrong
+        System.out.println("Tempature in Celsius: " + temp + " Degrees, in Fahrenheit: "+fahrenheitTemp);
         return temp;
     }
 
+    private static int getEnginTemp(){
+        int min = -20, max = 80;
+
+        int newTemp = (int) (min + Math.random() * (max - min));
+        if (temp+5 > newTemp && temp - 5 < newTemp){
+            temp = newTemp;
+        }
+        return temp;
+    }
+    public static int convertToFahrenheit(int CelsiusTemp){
+        return (CelsiusTemp * 9/5) + 33; //PATCH wrong formula, the right formula (CelsiusTemp * 9/5) + 32
+    }
 }

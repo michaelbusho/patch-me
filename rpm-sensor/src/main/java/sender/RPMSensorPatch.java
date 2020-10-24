@@ -6,13 +6,14 @@ import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.Random;
 import java.util.Timer;
-
 import rmiInterface.RPMInterface;
 import utils.ConsoleColors;
 
 public class RPMSensorPatch extends UnicastRemoteObject implements RPMInterface {
 
     private static final long serialVersionUID = 1L;
+
+    private static final int flywheelTeeth = 30;
 
     protected RPMSensorPatch() throws RemoteException {
         super();
@@ -53,6 +54,7 @@ public class RPMSensorPatch extends UnicastRemoteObject implements RPMInterface 
      * object distance
      */
     private static void detectRPM() {
+
         int threshold = -99999999;
         double objectProximity = 0;
         while (true) {
@@ -70,9 +72,23 @@ public class RPMSensorPatch extends UnicastRemoteObject implements RPMInterface 
      * Based on Ahmed's and Sultan's logic
      */
     private static double getRPMValue() {
-        double rpm = new Random().nextDouble()+10000;
-        System.out.println(" " + rpm + " rpms");
+        double rpm = measureRPM(pulsesPerSecond());
+        double showRpm = rpm/1000; //PATCH this it show the rpm for example 1.8 RPMs, deleting / the RPMs will show 1800
+        System.out.println(" " + showRpm + " RMPS");
         return rpm;
+    }
+
+    private static double measureRPM(double theTimeBtweenTwoTeeth){
+        double rpm;
+        rpm = theTimeBtweenTwoTeeth*60/flywheelTeeth;
+        return rpm;
+
+    }
+
+    private static double pulsesPerSecond(){
+        double min = 100, max = 900; //ms //or patch this
+
+        return min + Math.random() * (max - min);
     }
 
 }
