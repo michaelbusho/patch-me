@@ -12,6 +12,8 @@
 
     <modules>
         <module>patcher</module>
+        <module>rpm-sensor</module>
+        <module>temp-sensor</module>
     </modules>
 
     <developers>
