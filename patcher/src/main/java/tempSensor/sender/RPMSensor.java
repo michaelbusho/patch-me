@@ -10,11 +10,11 @@ import java.rmi.registry.Registry;
 import java.util.Random;
 import java.util.Timer;
 
-public class TempSensor extends UnicastRemoteObject implements RMIInterface {
+public class RPMSensor extends UnicastRemoteObject implements RPMInterface {
 
     private static final long serialVersionUID = 1L;
 
-    protected TempSensor() throws RemoteException {
+    protected RPMSensor() throws RemoteException {
         super();
     }
 
@@ -30,21 +30,21 @@ public class TempSensor extends UnicastRemoteObject implements RMIInterface {
 
         try {
             // Bind Registry
-            registry = LocateRegistry.createRegistry(RMIInterface.portNumber);
-            registry.bind(RMIInterface.processName, new TempSensor());
+            registry = LocateRegistry.createRegistry(RPMInterface.portNumber);
+            registry.bind(RPMInterface.processName, new RPMSensor());
 
             System.out.println(ConsoleColors.YELLOW_BACKGROUND + ConsoleColors.WHITE_BOLD
-                    + " Tempature Sensor In Progress " + ConsoleColors.RESET);
+                    + " RMP Sensor In Progress " + ConsoleColors.RESET);
 
             // Synchronise main process with backup
             //synchronizeTimer.scheduleAtFixedRate(new SynchroniseTask(), 0, synchroniseInterval);
 
             // < - Run Critical method ->
-            detectTemp();
+            detectRPM();
 
         } catch (Exception e) {
             synchronizeTimer.cancel();
-            throw new TempSensorException(e.toString(), RMIInterface.processName, registry);
+            throw new TempSensorException(e.toString(), RPMInterface.processName, registry);
         }
     }
 
@@ -52,12 +52,12 @@ public class TempSensor extends UnicastRemoteObject implements RMIInterface {
      * THIS CREATES AN EXCEPTION Based on Sultan's and Ahmed's logic Calculates the
      * object distance
      */
-    private static void detectTemp() {
+    private static void detectRPM() {
         int threshold = -99999999;
         float objectProximity = 0;
         while (true) {
             if (threshold == 99999999) {
-                objectProximity = getTempValue();
+                objectProximity = getRPMValue();
                 threshold = -99999999;
             } else {
                 threshold++;
@@ -69,10 +69,10 @@ public class TempSensor extends UnicastRemoteObject implements RMIInterface {
      * Simulation of distance value In real life could come from sensor or another
      * Based on Ahmed's and Sultan's logic
      */
-    private static int getTempValue() {
-        int temp = new Random().nextInt(999);
-        System.out.println("Tempature: " + temp + " Degrees");
-        return temp;
+    private static int getRPMValue() {
+        int rpm = new Random().nextInt(9999);
+        System.out.println(" " + rpm + " rpms");
+        return rpm;
     }
 
 }
