@@ -1,4 +1,5 @@
 /patcher/target
+/patcher/src/main/resources
 /rpm-sensor/target
 /temp-sensor/target
 .idea
