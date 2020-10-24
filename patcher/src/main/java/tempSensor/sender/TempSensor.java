@@ -23,7 +23,7 @@ public class TempSensor extends UnicastRemoteObject implements RMIInterface {
         return "I am Alive";
     }
 
-    public static void main(String[] args) throws TempSenorException {
+    public static void main(String[] args) throws TempSensorException {
         Registry registry = null;
         Timer synchronizeTimer = new Timer();
         int synchroniseInterval = 1000; // 1 sec
@@ -44,7 +44,7 @@ public class TempSensor extends UnicastRemoteObject implements RMIInterface {
 
         } catch (Exception e) {
             synchronizeTimer.cancel();
-            throw new TempSenorException(e.toString(), RMIInterface.processName, registry);
+            throw new TempSensorException(e.toString(), RMIInterface.processName, registry);
         }
     }
 
