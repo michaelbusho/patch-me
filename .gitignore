@@ -1,3 +1,5 @@
 /patcher/target
+/rpm-sensor/target
+/temp-sensor/target
 .idea
 *.iml

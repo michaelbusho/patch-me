@@ -12,7 +12,7 @@
     <artifactId>patcher</artifactId>
     <properties>
         <maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
-        <java.version>14</java.version>
+        <java.version>1.8</java.version>
     </properties>
 
     <build>
@@ -26,6 +26,27 @@
                     <target>1.8</target>
                     <encoding>UTF-8</encoding>
                 </configuration>
+            </plugin>
+
+            <plugin>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.6.0</version>
+                <groupId>org.codehaus.mojo</groupId>
+                <executions>
+                    <execution><!-- Run our version calculation script -->
+                        <id>Renaming build artifacts</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <workingDirectory>${basedir}/scripts</workingDirectory>
+                            <executable>bash</executable>
+                            <commandlineArgs>create_patch.sh</commandlineArgs>
+
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
