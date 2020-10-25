@@ -73,6 +73,7 @@ public class TempSensor extends UnicastRemoteObject implements RMIInterface {
         int fahrenheitTemp = convertToFahrenheit(temp);
         //PATCH Temperature in the message is written wrong
         System.out.println("Tempature in Celsius: " + temp + " Degrees, in Fahrenheit: "+fahrenheitTemp);
+
         return temp;
     }
 
@@ -82,10 +83,23 @@ public class TempSensor extends UnicastRemoteObject implements RMIInterface {
         int newTemp = (int) (min + Math.random() * (max - min));
         if (temp+5 > newTemp && temp - 5 < newTemp){
             temp = newTemp;
+            if (temp> 70)// PATCH we can change the Temperature where the system alert high Temperature
+                alrtHihgTemp();
         }
         return temp;
     }
     public static int convertToFahrenheit(int CelsiusTemp){
         return (CelsiusTemp * 9/5) + 33; //PATCH wrong formula, the right formula (CelsiusTemp * 9/5) + 32
+    }
+
+    private static void alrtHihgTemp(){
+
+            System.out.println("The Temperature is high");
+            alertCoolingSystem();
+
+    }
+
+    private static void alertCoolingSystem(){
+
     }
 }
