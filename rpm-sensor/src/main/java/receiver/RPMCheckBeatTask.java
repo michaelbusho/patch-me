@@ -2,7 +2,7 @@ package receiver;
 
 import java.util.Date;
 import java.util.TimerTask;
-import rmiInterface.*;
+import RPMrmiInterface.*;
 import utils.*;
 
 import java.net.MalformedURLException;

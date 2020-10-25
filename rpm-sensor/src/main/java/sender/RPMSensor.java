@@ -1,6 +1,6 @@
 package sender;
 
-import rmiInterface.*;
+import RPMrmiInterface.*;
 
 import utils.*;
 import java.rmi.RemoteException;
