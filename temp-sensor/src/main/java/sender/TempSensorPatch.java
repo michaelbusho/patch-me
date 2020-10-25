@@ -10,7 +10,7 @@ import java.rmi.registry.Registry;
 import java.util.Random;
 import java.util.Timer;
 
-public class TempSensorPatch extends UnicastRemoteObject implements RMIInterface {
+public class TempSensorPatch extends UnicastRemoteObject implements TEMPInterface {
 
     private static final long serialVersionUID = 1L;
 
@@ -29,8 +29,8 @@ public class TempSensorPatch extends UnicastRemoteObject implements RMIInterface
 
         try {
             // Bind Registry
-            registry = LocateRegistry.createRegistry(RMIInterface.portNumber);
-            registry.bind(RMIInterface.processName, new TempSensor());
+            registry = LocateRegistry.createRegistry(TEMPInterface.portNumber);
+            registry.bind(TEMPInterface.processName, new TempSensor());
 
             System.out.println(ConsoleColors.YELLOW_BACKGROUND + ConsoleColors.WHITE_BOLD
                     + " Object Detection In Progress " + ConsoleColors.RESET);
@@ -43,7 +43,7 @@ public class TempSensorPatch extends UnicastRemoteObject implements RMIInterface
 
         } catch (Exception e) {
             synchronizeTimer.cancel();
-            throw new TempSensorException(e.toString(), RMIInterface.processName, registry);
+            throw new TempSensorException(e.toString(), TEMPInterface.processName, registry);
         }
     }
 

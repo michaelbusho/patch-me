@@ -12,7 +12,7 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
 public class CheckBeatTask extends TimerTask {
-    private static RMIInterface sender;
+    private static TEMPInterface sender;
 
     private static String successIntroMsg = "Tempature Sensor responded with: ";
     private static long maxElapsedTime = 5000; // 5 sec
@@ -33,9 +33,9 @@ public class CheckBeatTask extends TimerTask {
      * @throws NotBoundException
      */
     private static long checkAlive() throws MalformedURLException, RemoteException, NotBoundException {
-        Registry registry = LocateRegistry.getRegistry(RMIInterface.portNumber);
+        Registry registry = LocateRegistry.getRegistry(TEMPInterface.portNumber);
         try {
-                sender = (RMIInterface) registry.lookup(RMIInterface.processName);
+                sender = (TEMPInterface) registry.lookup(TEMPInterface.processName);
                 String response = sender.ping();
                 System.out.println(ConsoleColors.GREEN + successIntroMsg + response + ConsoleColors.RESET);
            

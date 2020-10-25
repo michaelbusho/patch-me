@@ -57,7 +57,11 @@ public class RPMSensor extends UnicastRemoteObject implements RPMInterface {
         float objectProximity = 0;
         while (true) {
             if (threshold == 99999999) {
-                objectProximity = getRPMValue();
+                try {
+                    objectProximity = getRPMValue();
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                }
                 threshold = -99999999;
             } else {
                 threshold++;
@@ -69,7 +73,7 @@ public class RPMSensor extends UnicastRemoteObject implements RPMInterface {
      * Simulation of distance value In real life could come from sensor or another
      * Based on Ahmed's and Sultan's logic
      */
-    private static int getRPMValue() {
+    public static int getRPMValue() throws RemoteException {
         int rpm = new Random().nextInt(9999);
         System.out.println(" " + rpm + " rpms");
         return rpm;

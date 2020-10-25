@@ -10,4 +10,7 @@ public interface RPMInterface extends Remote {
 
     public String ping() throws RemoteException;
 
+    public static int getRPMValue() throws RemoteException {
+        return 0;
+    }
 }
