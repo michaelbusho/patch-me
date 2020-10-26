@@ -72,7 +72,7 @@ public class RPMSensorPatch extends UnicastRemoteObject implements RPMInterface 
      */
     private static double getRPMValue() {
         double rpm = measureRPM(pulsesPerSecond());
-        double showRpm = rpm; //PATCHed this it show the rpm for example 1.8 RPMs, deleting / the RPMs will show 1800
+        double showRpm = rpm/1000; //PATCH this it show the rpm for example 1.8 RPMs, deleting / the RPMs will show 1800
         System.out.println(" " + showRpm + " RMPS");
         return rpm;
     }

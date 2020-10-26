@@ -78,8 +78,8 @@ public class TempSensorPatch extends UnicastRemoteObject implements TEMPInterfac
     private static int getTempValue() {
         int temp = getEnginTemp();
         int fahrenheitTemp = convertToFahrenheit(temp);
-        //PATCHed Temperature in the message is written wrong
-        System.out.println("Temperature in Celsius: " + temp + " Degrees, in Fahrenheit: "+fahrenheitTemp);
+        //PATCH Temperature in the message is written wrong
+        System.out.println("Tempature in Celsius: " + temp + " Degrees, in Fahrenheit: "+fahrenheitTemp);
 
         return temp;
     }
@@ -90,7 +90,7 @@ public class TempSensorPatch extends UnicastRemoteObject implements TEMPInterfac
         int newTemp = (int) (min + Math.random() * (max - min));
         if (temp+5 > newTemp && temp - 5 < newTemp){
             temp = newTemp;
-            if (temp> 75)// PATCHed we can change the Temperature where the system alert high Temperature
+            if (temp> 70)// PATCH we can change the Temperature where the system alert high Temperature
             {
                 try {
                     alrtHihgTemp();
@@ -108,12 +108,12 @@ public class TempSensorPatch extends UnicastRemoteObject implements TEMPInterfac
         return temp;
     }
     public static int convertToFahrenheit(int CelsiusTemp){
-        return (CelsiusTemp * 9/5) + 32; //PATCHed wrong formula, the right formula (CelsiusTemp * 9/5) + 32
+        return (CelsiusTemp * 9/5) + 33; //PATCH wrong formula, the right formula (CelsiusTemp * 9/5) + 32
     }
 
     private static void alrtHihgTemp() throws RemoteException, MalformedURLException, AlreadyBoundException, NotBoundException {
 
-        System.out.println("The Temperature is higher than 75 C");//patched
+        System.out.println("The Temperature is high");
         alertCoolingSystem();
 
     }
