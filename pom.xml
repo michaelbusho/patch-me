@@ -6,7 +6,7 @@
 
     <groupId>rit.edu.patchme</groupId>
     <artifactId>patch-me</artifactId>
-    <version>0.0.1</version>
+    <version>0.0.2</version>
     <packaging>pom</packaging>
     <name>patch - Parent</name>
 
