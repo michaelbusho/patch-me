@@ -14,6 +14,8 @@ public class RPMSensor extends UnicastRemoteObject implements RPMInterface {
 
     private static final long serialVersionUID = 1L;
 
+    private static final int flywheelTeeth = 30;
+
     public RPMSensor() throws RemoteException {
         super();
     }
@@ -49,19 +51,16 @@ public class RPMSensor extends UnicastRemoteObject implements RPMInterface {
     }
 
     /**
-     * THIS CREATES AN EXCEPTION Based on Sultan's and Ahmed's logic Calculates the
-     * object distance
+     * Simulation of distance value In real life could come from sensor or another
+     * Based on Ahmed's and Sultan's logic
      */
     private static void detectRPM() {
+
         int threshold = -99999999;
-        float objectProximity = 0;
+        double objectProximity = 0;
         while (true) {
             if (threshold == 99999999) {
-                try {
-                    objectProximity = getRPMValue();
-                } catch (RemoteException e) {
-                    e.printStackTrace();
-                }
+                objectProximity = getRPMValue();
                 threshold = -99999999;
             } else {
                 threshold++;
@@ -73,10 +72,24 @@ public class RPMSensor extends UnicastRemoteObject implements RPMInterface {
      * Simulation of distance value In real life could come from sensor or another
      * Based on Ahmed's and Sultan's logic
      */
-    public static int getRPMValue() throws RemoteException {
-        int rpm = new Random().nextInt(9999);
-        System.out.println(" " + rpm + " rpms");
+    private static double getRPMValue() {
+        double rpm = measureRPM(pulsesPerSecond());
+        double showRpm = rpm/1000; //PATCH this it show the rpm for example 1.8 RPMs, deleting / the RPMs will show 1800
+        System.out.println(" " + showRpm + " RMPS");
         return rpm;
+    }
+
+    private static double measureRPM(double theTimeBtweenTwoTeeth){
+        double rpm;
+        rpm = theTimeBtweenTwoTeeth*60/flywheelTeeth;
+        return rpm;
+
+    }
+
+    private static double pulsesPerSecond(){
+        double min = 100, max = 900; //ms //or patch this
+
+        return min + Math.random() * (max - min);
     }
 
 }
