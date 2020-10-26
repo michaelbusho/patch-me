@@ -18,11 +18,11 @@ import RPMrmiInterface.RPMInterface;
 public class TempSensor extends UnicastRemoteObject implements TEMPInterface {
 
     private static final long serialVersionUID = 1L;
-    private static int temp = 20;
+    private static double temp = 20;
     private static String sender;
-    private static int Currenttemp = 20;
+    private static double Currenttemp = 20;
 
-    public static void SetTemp(int set) throws RemoteException {
+    public static void SetTemp(double set) throws RemoteException {
 
         Currenttemp = set;
     }
@@ -71,10 +71,10 @@ public class TempSensor extends UnicastRemoteObject implements TEMPInterface {
      */
     private static void detectTemp() {
         int threshold = -99999999;
-        float objectProximity = 0;
+        double engineTemp = 0;
         while (true) {
             if (threshold == 99999999) {
-                objectProximity = getTempValue();
+            	engineTemp = getTempValue();
                 threshold = -99999999;
             } else {
                 threshold++;
@@ -83,21 +83,22 @@ public class TempSensor extends UnicastRemoteObject implements TEMPInterface {
     }
 
 
-    private static int getTempValue() {
-        int temp = getEnginTemp();
-        int fahrenheitTemp = convertToFahrenheit(temp);
+    private static double getTempValue() {
+        double temp = getEnginTemp();
+        double fahrenheitTemp = convertToFahrenheit(temp);
         //PATCH Temperature in the message is written wrong
         System.out.println("Tempature in Celsius: " + temp + " Degrees, in Fahrenheit: "+fahrenheitTemp);
 
         return temp;
     }
 
-    private static int getEnginTemp(){
-        int min = -20, max = 80;
-
-        int newTemp = (int) (min + Math.random() * (max - min));
-        if (temp+5 > newTemp && temp - 5 < newTemp){
-            temp = newTemp;
+    private static double getEnginTemp(){
+        double min = -5, max = 5;
+        double changeInTemp = (min + Math.random() * (max - min));
+        if((temp + changeInTemp)>10) {
+        	temp += changeInTemp;
+        }
+            
             if (temp> 70)// PATCH we can change the Temperature where the system alert high Temperature
             {
                 try {
@@ -112,22 +113,21 @@ public class TempSensor extends UnicastRemoteObject implements TEMPInterface {
                     e.printStackTrace();
                 }
             }
-        }
         return temp;
     }
-    public static int convertToFahrenheit(int CelsiusTemp){
-        return (CelsiusTemp * 9/5) + 33; //PATCH wrong formula, the right formula (CelsiusTemp * 9/5) + 32
+    public static double convertToFahrenheit(double CelsiusTemp){
+        return (CelsiusTemp * 9/5) + 32; 
     }
 
     private static void alrtHihgTemp() throws RemoteException, MalformedURLException, AlreadyBoundException, NotBoundException {
 
             System.out.println("The Temperature is high");
-            alertCoolingSystem();
+            //alertCoolingSystem();
 
     }
-    private static void cooling(int rpm, int temp) throws RemoteException, MalformedURLException, AlreadyBoundException, NotBoundException {
+    private static void cooling(double rpm, double temp) throws RemoteException, MalformedURLException, AlreadyBoundException, NotBoundException {
 
-        int cool=rpm/temp;
+        double cool=rpm/temp;
         SetTemp(cool);
 
     }
@@ -135,9 +135,10 @@ public class TempSensor extends UnicastRemoteObject implements TEMPInterface {
 
     private static void alertCoolingSystem() throws MalformedURLException, RemoteException, NotBoundException, AlreadyBoundException {
         Registry RPMregistry = LocateRegistry.getRegistry(RPMInterface.portNumber);
-        RPMregistry.bind(RPMInterface.processName, new RPMSensor());
+        //RPMregistry.bind(RPMInterface.processName, new RPMSensor());
         try {
             RPMInterface rpmsender = (RPMInterface) RPMregistry.lookup(RPMInterface.processName);
+            System.out.println(RPMInterface.getRPMValue());
             cooling(RPMInterface.getRPMValue(),getTempValue());
         } catch (Exception e) {
             e.notify();
