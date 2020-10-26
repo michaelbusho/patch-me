@@ -13,6 +13,7 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.Timer;
+import RPMrmiInterface.RPMInterface;
 
 public class TempSensor extends UnicastRemoteObject implements TEMPInterface {
 
@@ -125,14 +126,14 @@ public class TempSensor extends UnicastRemoteObject implements TEMPInterface {
 
 
     private static void alertCoolingSystem() throws MalformedURLException, RemoteException, NotBoundException, AlreadyBoundException {
-//        Registry RPMregistry = LocateRegistry.getRegistry(RPMInterface.portNumber);
-//        RPMregistry.bind(RPMInterface.processName, new RPMSensor());
-//        try {
-//            RPMInterface rpmsender = (RPMInterface) RPMregistry.lookup(RPMInterface.processName);
-//            cooling(RPMInterface.getRPMValue(),getTempValue());
-//        } catch (Exception e) {
-//            e.notify();
-//        }
+        Registry RPMregistry = LocateRegistry.getRegistry(RPMInterface.portNumber);
+        RPMregistry.bind(RPMInterface.processName, new RPMSensor());
+        try {
+            RPMInterface rpmsender = (RPMInterface) RPMregistry.lookup(RPMInterface.processName);
+            cooling(RPMInterface.getRPMValue(),getTempValue());
+        } catch (Exception e) {
+            e.notify();
+        }
 
 
     }
