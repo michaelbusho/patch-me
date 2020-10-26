@@ -8,3 +8,11 @@
 .project
 .settings/org.eclipse.jdt.core.prefs
 rpm-sensor/.settings/org.eclipse.m2e.core.prefs
+rpm-sensor/.settings/org.eclipse.jdt.core.prefs
+rpm-sensor/.classpath
+rpm-sensor/.project
+temp-sensor/.settings/org.eclipse.m2e.core.prefs
+temp-sensor/.settings/org.eclipse.jdt.core.prefs
+temp-sensor/.classpath
+temp-sensor/.project
+
