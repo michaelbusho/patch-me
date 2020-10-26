@@ -20,6 +20,13 @@ public class TempSensor extends UnicastRemoteObject implements TEMPInterface {
     private static final long serialVersionUID = 1L;
     private static int temp = 20;
     private static String sender;
+    private static int Currenttemp = 20;
+
+    public static void SetTemp(int set) throws RemoteException {
+
+        Currenttemp = set;
+    }
+
 
 
     public TempSensor() throws RemoteException {
@@ -120,7 +127,8 @@ public class TempSensor extends UnicastRemoteObject implements TEMPInterface {
     }
     private static void cooling(int rpm, int temp) throws RemoteException, MalformedURLException, AlreadyBoundException, NotBoundException {
 
-
+        int cool=rpm/temp;
+        SetTemp(cool);
 
     }
 
