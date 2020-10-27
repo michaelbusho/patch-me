@@ -1,7 +1,19 @@
+import receiver.RPMBeatChecker;
+import sender.RPMSensor;
+import sender.TempSensorException;
+
+
 public class Main {
-    public static void main(String[] args){
-        System.out.println("--Hello World from the rpm-sensor");
-        System.out.println("--This is now updated code inside of the rpm-sensor");
-        System.out.println("--End of rpm sensor");
-    }
+
+	public static void main(String[] args) {
+		try {
+			RPMSensor.main(args);
+		} catch (TempSensorException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		RPMBeatChecker.main(args);
+
+	}
+
 }
