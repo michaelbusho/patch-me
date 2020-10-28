@@ -17,6 +17,7 @@ public class CheckBeatTask extends TimerTask {
     private static TEMPInterfaceSec senderR;
 
     private static String successIntroMsg = "Tempature Sensor responded with: ";
+    private static String successIntroMsg2 = "Second Tempature Sensor responded with: ";
     private static long maxElapsedTime = 5000; // 5 sec
     private static boolean backup = false;
 
@@ -48,15 +49,15 @@ public class CheckBeatTask extends TimerTask {
                     /**if (!shown)
                         checkSyncExpiry(senderR.getLastSyncTime());*/
                     String recovResponse = senderR.ping();
-                    System.out.println(ConsoleColors.GREEN + successIntroMsg + recovResponse + ConsoleColors.RESET);
+                    System.out.println(ConsoleColors.GREEN + successIntroMsg2 + recovResponse + ConsoleColors.RESET);
 
-                    /**try {
-                        sender = (RMIInterface) registry.lookup(RMIInterface.processName);
+                    try {
+                    	sender = (TEMPInterface) registry.lookup(TEMPInterface.processName);
                         backup = false;
                     } catch (Exception e) {
                         //TODO: handle exception
                         backup = true;
-                    }*/
+                    }
 
                 }
            

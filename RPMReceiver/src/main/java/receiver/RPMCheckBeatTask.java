@@ -17,6 +17,7 @@ public class RPMCheckBeatTask extends TimerTask {
     private static RPMInterfaceSec senderR;
 
     private static String successIntroMsg = "RPM Sensor responded with: ";
+    private static String successIntroMsg2 = "Second RPM Sensor responded with: ";
     private static long maxElapsedTime = 5000; // 5 sec
     private static boolean backup = false;
 
@@ -48,15 +49,15 @@ public class RPMCheckBeatTask extends TimerTask {
 			        /**if (!shown)
 			            checkSyncExpiry(senderR.getLastSyncTime());*/
 			        String recovResponse = senderR.ping();
-			        System.out.println(ConsoleColors.GREEN + successIntroMsg + recovResponse + ConsoleColors.RESET);
+			        System.out.println(ConsoleColors.GREEN + successIntroMsg2 + recovResponse + ConsoleColors.RESET);
 			
-			        /**try {
-			            sender = (RMIInterface) registry.lookup(RMIInterface.processName);
+			        try {
+			        	sender = (RPMInterface) registry.lookup(RPMInterface.processName);
 			            backup = false;
 			        } catch (Exception e) {
 			            //TODO: handle exception
 			            backup = true;
-			        }*/
+			        }
 			
 			    }
            
