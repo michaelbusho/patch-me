@@ -1,6 +1,5 @@
 import java.rmi.RemoteException;
 
-import receiver.BeatChecker;
 import sender.TempSensor;
 import sender.TempSensorException;
 
@@ -13,7 +12,6 @@ public class Main {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		BeatChecker.main(args);
 	}
 
 }

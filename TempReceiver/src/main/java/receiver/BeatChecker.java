@@ -13,8 +13,8 @@ public class BeatChecker {
 	private static String failureMsg = "No beat... ";
 	private static boolean exception = false;
 
-	private static int checkingInterval = 500; // 0.5second
-	private static int checkingTime = 250; // 0.25 sec check the time difference
+	private static int checkingInterval = 1000; // 0.5second
+	private static int checkingTime = 1000; // 0.25 sec check the time difference
 	private static int expireTime = 1000; // 1 second
 	private static Long lastUpdatedTime = (long) 0;
 

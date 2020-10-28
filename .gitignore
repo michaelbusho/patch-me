@@ -2,6 +2,10 @@
 /patcher/src/main/resources
 /rpm-sensor/target
 /temp-sensor/target
+/rpm-sensor-sec/target
+/temp-sensor-sec/target
+/TempReceiver/target
+/RPMReceiver/target
 .idea
 *.iml
 .classpath
@@ -15,4 +19,20 @@ temp-sensor/.settings/org.eclipse.m2e.core.prefs
 temp-sensor/.settings/org.eclipse.jdt.core.prefs
 temp-sensor/.classpath
 temp-sensor/.project
+rpm-sensor-sec/.settings/org.eclipse.m2e.core.prefs
+rpm-sensor-sec/.settings/org.eclipse.jdt.core.prefs
+rpm-sensor-sec/.classpath
+rpm-sensor-sec/.project
+temp-sensor-sec/.settings/org.eclipse.m2e.core.prefs
+temp-sensor-sec/.settings/org.eclipse.jdt.core.prefs
+temp-sensor-sec/.classpath
+temp-sensor-sec/.project
+RPMReceiver/.settings/org.eclipse.m2e.core.prefs
+RPMReceiver/.settings/org.eclipse.jdt.core.prefs
+RPMReceiver/.classpath
+RPMReceiver/.project
+TempReceiver/.settings/org.eclipse.m2e.core.prefs
+TempReceiver/.settings/org.eclipse.jdt.core.prefs
+TempReceiver/.classpath
+TempReceiver/.project
 
