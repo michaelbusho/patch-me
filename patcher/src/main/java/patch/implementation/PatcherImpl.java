@@ -4,7 +4,9 @@ import patch.Patcher;
 
 import java.io.File;
 import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 
 public class PatcherImpl implements Patcher {
     Process process = null;
@@ -16,48 +18,38 @@ public class PatcherImpl implements Patcher {
     }
 
     @Override
-    public void downloadPatchCode(String name){
+    public void applyPatchCode(String name){
         try {
-            //delete repo if exists
-            StringBuilder sb = new StringBuilder();
+            File outputFile =getOutputFile();
+            Path outputPath = outputFile.toPath();
 
-            //For windows
-            if (System.getProperty("os.name").contains("Windows")){
-                sb.append("mkdir patch001");
-                sb.append(" && cd patch001");
-                sb.append(" && git clone https://github.com/michaelbusho/patch-me");
-                sb.append(" && echo Code Downloaded");
-            }else{
-                sb.append("mkdir patch001");
-                sb.append(" && cd patch001");
-                sb.append(" && git clone https://github.com/michaelbusho/patch-me");
-                sb.append(" && echo Code Downloaded");
-            }
+            Files.copy(getPatchFile(name), outputPath, StandardCopyOption.REPLACE_EXISTING);
 
-//            Path currentRelativePath = Paths.get("");
-//            String s = currentRelativePath.toAbsolutePath().toString();
-//            System.out.println(s);
-//            ProcessBuilder pb = new ProcessBuilder("patch_jar.sh", "myArg1", "myArg2");
-
-            ProcessBuilder pb = new ProcessBuilder("pwd");
+            ProcessBuilder pb = new ProcessBuilder("bspatch", "bin/"+name+".jar","bin/"+name+".jar", "new.patch");
             pb.inheritIO();
-//            pb.directory(new File(System.getProperty("user.home") +"/Desktop")); //Set current directory
-//            pb.redirectError(new File(System.getProperty("user.home") +"/Desktop"));//Log errors in specified log file.
+
+//            pb.directory(new File(System.getProperty("user.dir"))); //Set current directory
+//            pb.redirectError(new File(System.getProperty("user.dir")));//Log errors in specified log file.
             process = pb.start();
             process.waitFor();
+            outputFile.delete();
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println(e.getMessage());
         }
     }
 
-    @Override
-    public void buildPatch(){
-
+    private File getOutputFile(){
+        final String dir = System.getProperty("user.dir");
+        File file = new File(dir +"/new.patch");
+        file.setWritable(true);
+        file.setReadable(true);
+        return file;
     }
 
-    @Override
-    public void removeDownloadedFiles(){
-
+    private InputStream getPatchFile(String name){
+        ClassLoader classloader = Thread.currentThread().getContextClassLoader();
+        InputStream input = classloader.getResourceAsStream(name+".patch");
+        return input;
     }
 }

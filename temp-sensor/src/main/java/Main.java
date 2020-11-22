@@ -1,5 +1,3 @@
-import java.rmi.RemoteException;
-
 import sender.TempSensor;
 import sender.TempSensorException;
 

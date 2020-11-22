@@ -44,8 +44,7 @@
                         <configuration>
                             <workingDirectory>${basedir}/scripts</workingDirectory>
                             <executable>bash</executable>
-                            <commandlineArgs>create_patch.sh</commandlineArgs>
-
+                            <commandlineArgs>create_patch.sh --prior=0.0.1 --post=0.0.2</commandlineArgs>
                         </configuration>
                     </execution>
                 </executions>

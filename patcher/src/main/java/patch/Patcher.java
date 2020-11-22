@@ -11,15 +11,6 @@ public interface Patcher {
      * Downloads the updated code from the repo
      * @param name - The repo's name
      */
-    void downloadPatchCode(String name);
+    void applyPatchCode(String name);
 
-    /**
-     * Builds a new updated jar which replaces the old
-     */
-    void buildPatch();
-
-    /**
-     * Cleans up and removes any downloaded files
-     */
-    void removeDownloadedFiles();
 }
