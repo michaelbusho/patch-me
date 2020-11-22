@@ -1,5 +1,3 @@
-import java.rmi.RemoteException;
-
 import receiver.RPMBeatChecker;
 import sender.RPMSensor;
 import sender.TempSensorException;
