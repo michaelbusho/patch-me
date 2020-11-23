@@ -1,4 +1,3 @@
-import receiver.RPMBeatChecker;
 import sender.RPMSensor;
 import sender.TempSensorException;
 
@@ -12,8 +11,5 @@ public class Main {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		RPMBeatChecker.main(args);
-
 	}
-
 }

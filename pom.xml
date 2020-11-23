@@ -14,6 +14,10 @@
         <module>patcher</module>
         <module>rpm-sensor</module>
         <module>temp-sensor</module>
+        <module>RPMReceiver</module>
+        <module>TempReceiver</module>
+        <module>temp-sensor-sec</module>
+        <module>rpm-sensor-sec</module>
     </modules>
 
     <developers>
