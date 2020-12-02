@@ -54,17 +54,10 @@ public class RPMSensor extends UnicastRemoteObject implements RPMInterfaceSec {
      * Simulation of distance value In real life could come from sensor or another
      * Based on Ahmed's and Sultan's logic
      */
-    private static void detectRPM() {
-
-        int threshold = -99999999;
-        double objectProximity = 0;
+    private static void detectRPM() throws InterruptedException {
         while (true) {
-            if (threshold == 99999999) {
-                objectProximity = getRPMValue();
-                threshold = -99999999;
-            } else {
-                threshold++;
-            }
+            getRPMValue();
+            Thread.sleep(1000);
         }
     }
 
@@ -75,7 +68,7 @@ public class RPMSensor extends UnicastRemoteObject implements RPMInterfaceSec {
     public static double getRPMValue() {
         double rpm = measureRPM(pulsesPerSecond());
         double showRpm = rpm; //PATCH this it show the rpm for example 1.8 RPMs, deleting / the RPMs will show 1800
-        System.out.println(" " + showRpm + " RMPS");
+        System.out.println(" " + showRpm + " RMPS" + " - v0.0.3");
         return rpm;
     }
 

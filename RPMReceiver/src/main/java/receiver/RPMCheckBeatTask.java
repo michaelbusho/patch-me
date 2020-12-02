@@ -21,13 +21,21 @@ public class RPMCheckBeatTask extends TimerTask {
     private static long maxElapsedTime = 5000; // 5 sec
     private static boolean backup = false;
 
+    public RPMCheckBeatTask(Boolean isFirst){
+        backup = isFirst;
+    }
+
+
     @Override
     public void run() {
         try {
+            System.out.println(backup);
             RPMBeatChecker.updateTime(checkAlive());
         } catch (Exception e) {
         }
     }
+
+
 
     /**
      * Checks heartbeat
@@ -40,17 +48,18 @@ public class RPMCheckBeatTask extends TimerTask {
         Registry registry = LocateRegistry.getRegistry(RPMInterface.portNumber);
         Registry secRegistry = LocateRegistry.getRegistry(RPMInterfaceSec.portNumber);
         try {
+                //Main
         		if(!backup) {
 	                sender = (RPMInterface) registry.lookup(RPMInterface.processName);
 	                String response = sender.ping();
 	                System.out.println(ConsoleColors.GREEN + successIntroMsg + response + ConsoleColors.RESET);
+                //Secondary
 			    }else {
 			        senderR = (RPMInterfaceSec) secRegistry.lookup(RPMInterfaceSec.processName);
 			        /**if (!shown)
 			            checkSyncExpiry(senderR.getLastSyncTime());*/
 			        String recovResponse = senderR.ping();
 			        System.out.println(ConsoleColors.GREEN + successIntroMsg2 + recovResponse + ConsoleColors.RESET);
-			
 			        try {
 			        	sender = (RPMInterface) registry.lookup(RPMInterface.processName);
 			            backup = false;
