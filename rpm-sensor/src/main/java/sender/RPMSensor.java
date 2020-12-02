@@ -3,6 +3,8 @@ package sender;
 import RPMrmiInterface.*;
 
 import utils.*;
+
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.rmi.registry.LocateRegistry;
@@ -15,6 +17,7 @@ public class RPMSensor extends UnicastRemoteObject implements RPMInterface {
     private static final long serialVersionUID = 1L;
 
     private static final int flywheelTeeth = 30;
+    private static  Registry registry = null;
 
     public RPMSensor() throws RemoteException {
         super();
@@ -25,8 +28,15 @@ public class RPMSensor extends UnicastRemoteObject implements RPMInterface {
         return "I am Alive";
     }
 
+    @Override
+    public void terminate() throws RemoteException, NotBoundException {
+        System.out.println("Main process is terminating - Ready to be patched");
+        registry.unbind(processName);
+        UnicastRemoteObject.unexportObject(registry, true);
+        System.exit(0);
+    }
+
     public static void main(String[] args) throws TempSensorException {
-        Registry registry = null;
         Timer synchronizeTimer = new Timer();
         int synchroniseInterval = 1000; // 1 sec
 
@@ -54,17 +64,10 @@ public class RPMSensor extends UnicastRemoteObject implements RPMInterface {
      * Simulation of distance value In real life could come from sensor or another
      * Based on Ahmed's and Sultan's logic
      */
-    private static void detectRPM() {
-
-        int threshold = -99999999;
-        double objectProximity = 0;
+    private static void detectRPM() throws InterruptedException {
         while (true) {
-            if (threshold == 99999999) {
-                objectProximity = getRPMValue();
-                threshold = -99999999;
-            } else {
-                threshold++;
-            }
+            getRPMValue();
+            Thread.sleep(1000);
         }
     }
 
@@ -75,7 +78,7 @@ public class RPMSensor extends UnicastRemoteObject implements RPMInterface {
     private static double getRPMValue() {
         double rpm = measureRPM(pulsesPerSecond());
         double showRpm = rpm; //PATCH this it show the rpm for example 1.8 RPMs, deleting / the RPMs will show 1800
-        System.out.println(" " + showRpm + " RMPS");
+        System.out.println(" " + showRpm + " RMPS" + " - v0.0.3");
         return rpm;
     }
 

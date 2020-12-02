@@ -51,7 +51,7 @@ else
   wget -O post_rpm.jar -nc https://github.com/michaelbusho/patch-me/releases/download/"$POST_V"/rpm-sensor-"$POST_V".jar
 
   #create rpm patch
-  bsdiff prior_rpm.jar post_rpm.jar rpm-sensor-0.0.1.patch
+  bsdiff prior_rpm.jar post_rpm.jar rpm-sensor.patch
 
   #clean up rpm jars
   rm -rf prior_rpm.jar post_rpm.jar
@@ -62,7 +62,7 @@ else
   wget -O post_temp.jar -nc https://github.com/michaelbusho/patch-me/releases/download/"$POST_V"/temp-sensor-"$POST_V".jar
 
   #create temp patch
-  bsdiff prior_temp.jar post_temp.jar temp-sensor-0.0.1.patch
+  bsdiff prior_temp.jar post_temp.jar temp-sensor.patch
 
   #clean up rpm jars
   rm -rf prior_temp.jar post_temp.jar
