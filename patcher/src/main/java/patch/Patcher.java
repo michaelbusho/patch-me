@@ -13,4 +13,10 @@ public interface Patcher {
      */
     void applyPatchCode(String name);
 
+    /**
+     * Checks MD5 SUM of patched jar
+     * @param name
+     * @return
+     */
+    public Boolean checkSum(String name);
 }

@@ -21,6 +21,7 @@ public class TempSensor extends UnicastRemoteObject implements TEMPInterface {
     private static double temp = 20;
     private static String sender;
     private static double Currenttemp = 20;
+    private static  Registry registry = null;
 
     public static void SetTemp(double set) throws RemoteException {
 
@@ -28,6 +29,13 @@ public class TempSensor extends UnicastRemoteObject implements TEMPInterface {
     }
 
 
+    @Override
+    public void terminate() throws RemoteException, NotBoundException {
+        System.out.println("Main process is terminating - Ready to be patched");
+        registry.unbind(processName);
+        UnicastRemoteObject.unexportObject(registry, true);
+        System.exit(0);
+    }
 
     public TempSensor() throws RemoteException {
         super();
@@ -39,8 +47,8 @@ public class TempSensor extends UnicastRemoteObject implements TEMPInterface {
     }
 
     public static void main(String[] args) throws TempSensorException {
-        Registry registry = null;
-        Registry RMPregistry = null;
+//        Registry registry = null;
+//        Registry RMPregistry = null;
         Timer synchronizeTimer = new Timer();
         int synchroniseInterval = 1000; // 1 sec
 
@@ -69,16 +77,10 @@ public class TempSensor extends UnicastRemoteObject implements TEMPInterface {
      * THIS CREATES AN EXCEPTION Based on Sultan's and Ahmed's logic Calculates the
      * object distance
      */
-    private static void detectTemp() {
-        int threshold = -99999999;
-        double engineTemp = 0;
+    private static void detectTemp() throws InterruptedException {
         while (true) {
-            if (threshold == 99999999) {
-            	engineTemp = getTempValue();
-                threshold = -99999999;
-            } else {
-                threshold++;
-            }
+            Thread.sleep(1000);
+            getTempValue();
         }
     }
 
@@ -86,9 +88,7 @@ public class TempSensor extends UnicastRemoteObject implements TEMPInterface {
     private static double getTempValue() {
         double temp = getEnginTemp();
         double fahrenheitTemp = convertToFahrenheit(temp);
-        //PATCH Temperature in the message is written wrong
-        System.out.println("Tempature in Celsius: " + temp + " Degrees, in Fahrenheit: "+fahrenheitTemp);
-
+        System.out.println("Tempature in Celsius: " + temp + " Degrees, in Fahrenheit: "+fahrenheitTemp + " -v0.0.4");
         return temp;
     }
 

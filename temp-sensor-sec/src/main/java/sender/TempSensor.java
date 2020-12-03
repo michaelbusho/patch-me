@@ -68,16 +68,10 @@ public class TempSensor extends UnicastRemoteObject implements TEMPInterfaceSec 
      * THIS CREATES AN EXCEPTION Based on Sultan's and Ahmed's logic Calculates the
      * object distance
      */
-    private static void detectTemp() {
-        int threshold = -99999999;
-        double engineTemp = 0;
+    private static void detectTemp() throws InterruptedException {
         while (true) {
-            if (threshold == 99999999) {
-            	engineTemp = getTempValue();
-                threshold = -99999999;
-            } else {
-                threshold++;
-            }
+            Thread.sleep(1000);
+            getTempValue();
         }
     }
 
@@ -85,9 +79,7 @@ public class TempSensor extends UnicastRemoteObject implements TEMPInterfaceSec 
     private static double getTempValue() {
         double temp = getEnginTemp();
         double fahrenheitTemp = convertToFahrenheit(temp);
-        //PATCH Temperature in the message is written wrong
-        System.out.println("Tempature in Celsius: " + temp + " Degrees, in Fahrenheit: "+fahrenheitTemp);
-
+        System.out.println("Tempature in Celsius: " + temp + " Degrees, in Fahrenheit: "+fahrenheitTemp + " -v0.0.4");
         return temp;
     }
 

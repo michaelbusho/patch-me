@@ -39,7 +39,6 @@ public class RPMBeatChecker extends UnicastRemoteObject implements RPMReceiverIn
 			//bind yourself to the registry and be ready to receive commands
 			registry = LocateRegistry.createRegistry(RPMReceiverInterface.portNumber);
 			registry.bind(RPMReceiverInterface.processName, new RPMBeatChecker());
-			System.out.println(backup);
 
 			// Reads a heartbeat
 			heartbeatTimer.scheduleAtFixedRate(new RPMCheckBeatTask(backup), 0, checkingInterval);
