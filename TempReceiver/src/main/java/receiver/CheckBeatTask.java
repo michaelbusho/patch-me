@@ -21,6 +21,10 @@ public class CheckBeatTask extends TimerTask {
     private static long maxElapsedTime = 5000; // 5 sec
     private static boolean backup = false;
 
+    public CheckBeatTask(Boolean isFirst){
+        backup = isFirst;
+    }
+
     @Override
     public void run() {
         try {
