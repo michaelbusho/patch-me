@@ -29,7 +29,6 @@ public class RPMCheckBeatTask extends TimerTask {
     @Override
     public void run() {
         try {
-            System.out.println(backup);
             RPMBeatChecker.updateTime(checkAlive());
         } catch (Exception e) {
         }

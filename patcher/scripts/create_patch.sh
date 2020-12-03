@@ -8,8 +8,8 @@ cd ../src/main/resources
 if ls *.patch &> /dev/null; then
     echo "Patch is already generated - Remove it to force generating it again"
 else
-  PRIOR_V="0.0.1"
-  POST_V="0.0.2"
+  PRIOR_V="0.0.3"
+  POST_V="0.0.4"
 
   function usage()
   {
@@ -51,7 +51,7 @@ else
   wget -O post_rpm.jar -nc https://github.com/michaelbusho/patch-me/releases/download/"$POST_V"/rpm-sensor-"$POST_V".jar
 
   #create rpm patch
-  bsdiff prior_rpm.jar post_rpm.jar rpm-sensor.patch
+  bsdiff prior_rpm.jar post_rpm.jar rpm-sensor-0.0.3.patch
 
   #clean up rpm jars
   rm -rf prior_rpm.jar post_rpm.jar
@@ -62,7 +62,7 @@ else
   wget -O post_temp.jar -nc https://github.com/michaelbusho/patch-me/releases/download/"$POST_V"/temp-sensor-"$POST_V".jar
 
   #create temp patch
-  bsdiff prior_temp.jar post_temp.jar temp-sensor.patch
+  bsdiff prior_temp.jar post_temp.jar temp-sensor-0.0.3.patch
 
   #clean up rpm jars
   rm -rf prior_temp.jar post_temp.jar
