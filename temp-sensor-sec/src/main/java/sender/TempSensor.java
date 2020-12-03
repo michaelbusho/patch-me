@@ -79,7 +79,7 @@ public class TempSensor extends UnicastRemoteObject implements TEMPInterfaceSec 
     private static double getTempValue() {
         double temp = getEnginTemp();
         double fahrenheitTemp = convertToFahrenheit(temp);
-        System.out.println("Tempature in Celsius: " + temp + " Degrees, in Fahrenheit: "+fahrenheitTemp + " -v0.0.4");
+        System.out.println("Tempature in Celsius: " + temp + " Degrees, in Fahrenheit: "+fahrenheitTemp + " -v0.0.5");
         return temp;
     }
 
