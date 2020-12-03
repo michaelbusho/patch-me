@@ -3,20 +3,20 @@
   <parent>
     <groupId>rit.edu.patchme</groupId>
     <artifactId>patch-me</artifactId>
-    <version>0.0.2</version>
+    <version>0.0.4</version>
   </parent>
   <artifactId>TempReceiver</artifactId>
   <dependencies>
         <dependency>
             <groupId>rit.edu.patchme</groupId>
             <artifactId>temp-sensor</artifactId>
-            <version>0.0.2</version>
+            <version>0.0.4</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>rit.edu.patchme</groupId>
             <artifactId>temp-sensor-sec</artifactId>
-            <version>0.0.2</version>
+            <version>0.0.4</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>

@@ -10,8 +10,8 @@ public class Main {
     public static void main(String[] args){
         System.out.println("**** PATCHER ****");
 
-        patchRPM("rpm-sensor-0.0.3");
-//        patchThermometer("temp-sensor-0.0.1");
+        patchRPM("rpm-sensor-0.0.4");
+//        patchThermometer("temp-sensor-0.0.4");
     }
 
     /**

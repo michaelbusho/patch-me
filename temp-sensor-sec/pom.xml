@@ -3,7 +3,7 @@
   <parent>
     <groupId>rit.edu.patchme</groupId>
     <artifactId>patch-me</artifactId>
-    <version>0.0.2</version>
+    <version>0.0.4</version>
   </parent>
   <artifactId>temp-sensor-sec</artifactId>
     <properties>

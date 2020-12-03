@@ -3,7 +3,7 @@
   <parent>
     <artifactId>patch-me</artifactId>
     <groupId>rit.edu.patchme</groupId>
-    <version>0.0.2</version>
+    <version>0.0.4</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>patcher</artifactId>
@@ -32,7 +32,7 @@
             <configuration>
               <workingDirectory>${basedir}/scripts</workingDirectory>
               <executable>bash</executable>
-              <commandlineArgs>create_patch.sh --prior=0.0.3 --post=0.0.4</commandlineArgs>
+              <commandlineArgs>create_patch.sh --prior=0.0.4 --post=0.0.5</commandlineArgs>
             </configuration>
           </execution>
         </executions>
