@@ -12,3 +12,5 @@ package a module like this
 mvn -f patcher/pom.xml clean package
 
 then a jar is generated
+
+Refernace: http://www.daemonology.net/bsdiff/
